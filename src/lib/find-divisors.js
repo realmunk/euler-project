@@ -1,15 +1,12 @@
-const { primeFactorsWithExponents } = require("./prime-factor");
+const { primeFactorsWithExponents } = require('./prime-factor');
 
-function findDivisors(n) {
-  let result = primeFactorsWithExponents(n);
+function findDivisors(_n) {
+  const n = _n;
+  const result = primeFactorsWithExponents(n);
 
-  console.time("findDivisors");
-  result
-    .map(n => {
-      return n[1] + 1;
-    })
-    .reduce((x, y) => x * y, 1);
-  console.timeEnd("findDivisors");
+  console.time('findDivisors');
+  result.map(x => x[1] + 1).reduce((x, y) => x * y, 1);
+  console.timeEnd('findDivisors');
 
   return result;
 }

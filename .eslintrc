@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-plusplus": "off",
+    "no-console": "off"
+  },
+  "env": {
+    "jest": true
+  }
+}

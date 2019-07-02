@@ -1,7 +1,7 @@
-const generateTriangleNumbers = require("./generate-triangle-numbers");
+const generateTriangleNumbers = require('./generate-triangle-numbers');
 
-describe("generateTriangleNumbers Validator", () => {
-  it("should be able to generate the first ten triangle numbers", () => {
+describe('generateTriangleNumbers Validator', () => {
+  it('should be able to generate the first ten triangle numbers', () => {
     expect(generateTriangleNumbers(10)).toEqual([
       1,
       3,
@@ -12,7 +12,7 @@ describe("generateTriangleNumbers Validator", () => {
       28,
       36,
       45,
-      55
+      55,
     ]);
   });
 });
