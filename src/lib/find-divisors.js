@@ -1,4 +1,4 @@
-const { primeFactorsWithExponents } = require("./prime-factor");
+const primeFactorsWithExponents = require("./prime-factor-exponent");
 
 function findDivisors(_n) {
   const n = _n;
@@ -12,5 +12,3 @@ function findDivisors(_n) {
 }
 
 module.exports = findDivisors;
-
-findDivisors(76576500);

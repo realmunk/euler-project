@@ -1,13 +1,16 @@
+const bigInt = require("big-integer");
 const { readFile } = require("./lib/filereader");
-var bigInt = require("big-integer");
 
-let grid = [];
+module.exports = function eulerThirteen() {
+  return new Promise(resolve => {
+    readFile("assets/13.txt", data => {
+      let grid = [];
+      grid = data.split("\n");
 
-readFile("../assets/13.txt", data => {
-  grid = data.split("\n");
+      grid = grid.map(x => bigInt(x));
 
-  grid = grid.map(x => bigInt(x));
-
-  let result = grid.reduce((x, y) => x.add(y));
-  console.log(result);
-});
+      const result = grid.reduce((x, y) => x.add(y));
+      return resolve(parseInt(result.toString().substr(0, 10), 10));
+    });
+  });
+};
