@@ -31,4 +31,6 @@ function findMaxPalindrome(numbers) {
   return max;
 }
 
-console.log(findMaxPalindrome(palindromeNumbers()));
+module.exports = function eulerFour() {
+  return findMaxPalindrome(palindromeNumbers());
+};

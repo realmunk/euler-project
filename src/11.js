@@ -1,17 +1,5 @@
 const { readFile } = require("./lib/filereader");
 
-let grid;
-
-readFile("../assets/11.txt", data => {
-  grid = data.split("\n");
-
-  grid = grid.filter(a => a.length);
-  grid = grid.map(row => row.split(" ").map(n => parseInt(n)));
-  parseHorizontal(grid);
-  parseVertical(grid);
-  parseDiagonal(grid);
-});
-
 function parseHorizontal(grid) {
   let max = 0;
   let sum = 0;
@@ -19,13 +7,13 @@ function parseHorizontal(grid) {
     for (let j = 0; j < grid[i].length; j++) {
       if (grid[i][j + 3]) {
         sum = grid[i][j] * grid[i][j + 1] * grid[i][j + 2] * grid[i][j + 3];
-        if (max < sum) {
+        if (sum > max) {
           max = sum;
         }
       }
     }
   }
-  console.log("H:", max);
+  return max;
 }
 
 function parseVertical(grid) {
@@ -35,29 +23,13 @@ function parseVertical(grid) {
     for (let j = 0; j < grid[i].length; j++) {
       if (grid[i + 3]) {
         sum = grid[i][j] * grid[i + 1][j] * grid[i + 2][j] * grid[i + 3][j];
-        if (max < sum) {
+        if (sum > max) {
           max = sum;
         }
       }
     }
   }
-  console.log("V:", max);
-}
-
-function parseVertical(grid) {
-  let max = 0;
-  let sum = 0;
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[i].length; j++) {
-      if (grid[i + 3]) {
-        sum = grid[i][j] * grid[i + 1][j] * grid[i + 2][j] * grid[i + 3][j];
-        if (max < sum) {
-          max = sum;
-        }
-      }
-    }
-  }
-  console.log("V:", max);
+  return max;
 }
 
 function parseDiagonal(grid) {
@@ -71,13 +43,12 @@ function parseDiagonal(grid) {
           grid[i + 1][j + 1] *
           grid[i + 2][j + 2] *
           grid[i + 3][j + 3];
-        if (max < sum) {
+        if (sum > max) {
           max = sum;
         }
       }
     }
   }
-  console.log("D-R:", max);
   for (let i = grid.length - 1; i > 0; i--) {
     for (let j = 0; j < grid[i].length; j++) {
       if (grid[i - 3] && grid[i - 3][j + 3]) {
@@ -86,11 +57,30 @@ function parseDiagonal(grid) {
           grid[i - 1][j + 1] *
           grid[i - 2][j + 2] *
           grid[i - 3][j + 3];
-        if (max < sum) {
+        if (sum > max) {
           max = sum;
         }
       }
     }
   }
-  console.log("D-L:", max);
+  return max;
 }
+
+module.exports = function eulerEleven() {
+  return new Promise(resolve => {
+    readFile("assets/11.txt", data => {
+      let grid = data.split("\n");
+      grid = grid.filter(a => a.length);
+      grid = grid.map(row => row.split(" ").map(n => parseInt(n, 10)));
+
+      const highestH = parseHorizontal(grid);
+      const highestV = parseVertical(grid);
+      const highestD = parseDiagonal(grid);
+      const max = [highestH, highestV, highestD].reduce(
+        (a, b) => (a > b ? a : b),
+        0
+      );
+      resolve(max);
+    });
+  });
+};

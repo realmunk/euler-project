@@ -1,34 +1,24 @@
-const isPrime = require('./is-prime');
+const isPrime = require("./is-prime");
 
-function nrOfExponents(prime, _n) {
-  let exponents = 0;
-  let n = _n;
-  while (n % prime === 0) {
-    exponents++;
-    n /= prime;
-  }
-
-  return exponents;
-}
-
-function primeFactorsWithExponents(_n) {
-  console.time('main');
-  const results = [];
-  const N = _n;
+module.exports = function getPrimeFactors(_n) {
+  const primeFactors = [];
   let n = _n;
 
-  for (let p = 2; n >= p; p++) {
-    if (isPrime(p) && n % p === 0) {
-      const exponents = nrOfExponents(p, N);
-      results.push([p, exponents]);
-      n /= p;
+  console.time("primeFactors");
+  for (let i = 2; i < n; i++) {
+    if (isPrime(i)) {
+      if (n % i === 0) {
+        primeFactors.push(i);
+        n = Math.floor(n / i);
+        console.log(i, n);
+        if (n <= 1) {
+          break;
+        }
+      }
     }
+    i += 2;
   }
-  console.timeEnd('main');
 
-  return results;
-}
-
-module.exports = {
-  primeFactorsWithExponents,
+  console.timeEnd("primeFactors");
+  return primeFactors;
 };

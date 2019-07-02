@@ -1,5 +1,3 @@
-let fibonacci = 0;
-
 module.exports = {
   generateFibonacciSequence: max => {
     const numbers = [];
@@ -19,27 +17,14 @@ module.exports = {
 
     return numbers;
   },
-  sumOfEvenNumbers: sequence => {
-    return sequence.reduce((acc, nr) => {
+  sumOfEvenNumbers: sequence =>
+    sequence.reduce((acc, nr) => {
       if (nr === 1) {
         return acc;
-      } else if (nr % 2 === 0) {
-        return nr + acc;
-      } else {
-        return acc;
       }
-    }, 0);
-  },
-
-  sumOfEvenNumbers: sequence => {
-    return sequence.reduce((acc, nr) => {
-      if (nr === 1) {
-        return acc;
-      } else if (nr % 2 === 0) {
+      if (nr % 2 === 0) {
         return nr + acc;
-      } else {
-        return acc;
       }
-    }, 0);
-  }
+      return acc;
+    }, 0)
 };

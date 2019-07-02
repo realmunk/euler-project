@@ -1,13 +1,15 @@
-const { isPrime } = require("./3.js");
+const isPrime = require("./lib/is-prime");
 
-let primes = [2];
-let i = 3;
+module.exports = function eulerSeven() {
+  const primes = [2];
+  let i = 3;
 
-while (primes.length < 10001) {
-  if (isPrime(i)) {
-    primes.push(i);
+  while (primes.length < 10001) {
+    if (isPrime(i)) {
+      primes.push(i);
+    }
+    i += 2;
   }
-  i += 2;
-}
 
-console.log(primes[10000]);
+  return primes[10000];
+};
